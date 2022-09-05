@@ -1,0 +1,8 @@
+adapters: 
+  - http
+debug: false
+enableVerify: true
+verifyKey: INITKEYywq4Kyhc
+singleMode: false
+cacheSize: 4096
+adapterSettings: {}
