@@ -3,11 +3,7 @@ from itsdangerous import json
 from mirai import GroupMessage
 import random
 import json
-import urllib.request
-from service.MysqlServer import write_sql
-
-
-#黑名单
+import urllib.request#黑名单
 group_hide=[""]
 qq_hide=[""]
 
