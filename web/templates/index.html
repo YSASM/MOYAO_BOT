@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1,
+            maximum-scale=1">
+        <script src="../static/js/echarts.js"></script>
+        <script src="{{ url_for('static', filename='../static/js/echarts.js')
+            }}"></script>
+        <script type="text/javascript" src="../static/js/layui.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename=
+            '../static/js/layui.js') }}"></script>
+        <link type="text/css" rel="stylesheet" href="../static/css/layui.css"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',
+            filename= '../static/css/layui.css') }}">
+        <link type="text/css" rel="stylesheet" href="../static/css/layout.css"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',
+            filename= '../static/css/layout.css') }}">
+    </head>
+    <body>
+        <form name="indexform" action="/" method="post"></form>
+        <form name="plugform" action="/plug" method="post"></form>
+        <script>
+            // function clickleftmenubtn(){
+            //     var leftmenu = document.getElementById("leftmenu");
+            //     if (leftmenu.getAttribute("hidden")=="hidden"){
+            //         leftmenu.removeAttribute("hidden");
+            //         leftmenu.setAttribute("class", "layui-anim layui-anim-fadein");
+            //     }
+            //     else{
+            //         leftmenu.setAttribute("class", "layui-anim layui-anim-fadeout");
+            //         setTimeout(() => {
+            //             leftmenu.setAttribute("hidden", "hidden");
+            //         },  200);
+            //     }
+                
+            // }
+        </script>
+        <div class="layui-layout layui-layout-admin">
+            <!-- 顶部导航区域 -->
+            <div class="layui-header">
+                <div class="layui-logo layui-hide-xs layui-bg-black">QQ机器人管理系统</div>
+                <ul class="layui-nav layui-layout-right">
+                    <li class="layui-nav-item" lay-header-event="menuRight"
+                        lay-unselect>
+                        <a href="javascript:;">
+                            {{run_stop}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 左侧导航区域 -->
+            <div id="leftmenu" class="">
+                <div class="layui-side layui-bg-black">
+                    <div class="layui-side-scroll">
+                        <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                            <li class="layui-nav-item layui-nav-itemed">
+                                <a class="layui-this"
+                                    href="javascript:document.indexform.submit();">仪表盘</a>
+                            </li>
+                            <li class="layui-nav-item layui-nav-itemed">
+                                <a
+                                    href="javascript:document.plugform.submit();">插件管理</a>
+                            </li>
+                            <li class="layui-nav-item layui-nav-itemed">
+                                <a href="javascript:;">其他</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-body">
+                <div class="layui-panel">
+                    <div class="layui-row">
+                        <div class="layui-col-md6">
+                            <table class="layui-table">
+                                <colgroup>
+                                    <col width="150">
+                                    <col width="200">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>qq</td>
+                                        <td>{{qq}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>状态</td>
+                                        <td>{{status}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>插件数量</td>
+                                        <td>{{plug_num}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>其他</td>
+                                        <td>{{xxx}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>其他</td>
+                                        <td>{{xxx}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>其他</td>
+                                        <td>{{xxx}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="layui-col-md2">
+                            <div id="free" style="width: 300px;height:300px;"></div>
+                            <div hidden="hidden" id="freeuse">{{freeuse}}</div>
+                            <div hidden="hidden" id="freeunuse">{{freeunuse}}</div>
+                        </div>
+                        <div class="layui-col-md2">
+                            <div id="cpu" style="width: 300px;height:300px;"></div>
+                            <div hidden="hidden" id="cpuuse">{{cpuuse}}</div>
+                            <div hidden="hidden" id="cpuunuse">{{cpuunuse}}</div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                    // 基于准备好的dom，初始化echarts实例
+                    var free = echarts.init(document.getElementById('free'));
+                    var freeuse = parseInt(document.getElementById('freeuse').innerHTML)
+                    var freeunuse = parseInt(document.getElementById('freeunuse').innerHTML)
+                    // 指定图表的配置项和数据
+                    var option = {
+                        title: {
+                            text: '内存使用情况',
+                            left: 'center',
+                            top:"60%"
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{a} <br/>{b} : {c} ({d}%)'
+                        },
+                        series: [
+                            {
+                                name: '内存使用情况',
+                                type: 'pie',
+                                radius: ['20%','35%'],
+                                center: ['50%', '40%'],
+                                data: [
+                                    {value: freeuse, name: '已使用'},
+                                    {value: freeunuse, name: '未使用'},
+                                ],
+                                
+                                emphasis: {
+                                    itemStyle: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }
+                        ]
+                    };
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    free.setOption(option);
+                    // 基于准备好的dom，初始化echarts实例
+                    var cpu = echarts.init(document.getElementById('cpu'));
+                    var cpuuse = parseInt(document.getElementById('cpuuse').innerHTML)
+                    var cpuunuse = parseInt(document.getElementById('cpuunuse').innerHTML)
+                    // 指定图表的配置项和数据
+                    var option = {
+                        title: {
+                            text: 'cpu使用情况',
+                            left: 'center',
+                            top:"60%"
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{a} <br/>{b} : {c} ({d}%)'
+                        },
+                        series: [
+                            {
+                                name: 'cpu使用情况',
+                                type: 'pie',
+                                radius: ['20%','35%'],
+                                center: ['50%', '40%'],
+                                data: [
+                                    {value: cpuuse, name: '已使用'},
+                                    {value: cpuunuse, name: '未使用'},
+                                ],
+                                
+                                emphasis: {
+                                    itemStyle: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }
+                        ]
+                    };
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    cpu.setOption(option);
+                    </script>
+                </div>
+
+                <div class="layui-tab">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">xxx</li>
+                        <li>xxx</li>
+                        <li>xxx</li>
+                        <li>xxx</li>
+                        <li>xxx</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">内容1</div>
+                        <div class="layui-tab-item">内容2</div>
+                        <div class="layui-tab-item">内容3</div>
+                        <div class="layui-tab-item">内容4</div>
+                        <div class="layui-tab-item">内容5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
