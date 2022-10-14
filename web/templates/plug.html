@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <script type="text/javascript" src="../static/js/layui.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename = '../static/js/layui.js') }}"></script>
+        <link type="text/css" rel="stylesheet" href="../static/css/layui.css"/>
+	    <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename = '../static/css/layui.css') }}">
+        <link type="text/css" rel="stylesheet" href="../static/css/layout.css"/>
+	    <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename = '../static/css/layout.css') }}">
+    </head>
+    <body>
+        <div class="layui-side layui-bg-black">
+            <form name ="indexform" action="/" method="post"></form>
+            <form name ="plugform" action="/plug" method="post"></form>
+            <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <strong class="layui-nav-item layui-nav-itemed" style="text-align:center;">QQ机器人管理系统</strong>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:document.indexform.submit();">仪表盘</a>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="layui-this" href="javascript:document.plugform.submit();">插件管理</a>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;">其他</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <!-- <form name ="nform" id="iform" method="post" action="url"></form> -->
+            <!-- <a href=javascript:document.nform.submit();"> 提交 </a> -->
+            <!-- <a href="javascript:;" onclick="javascript:document.nform.submit();"> 提交 </a>   -->
+            <!-- 以上两种对应name   -->
+            <!-- <a href="#" onclick="document.getElementById('iform').submit();return false"> 提交 </a> -->
+        </div>
+    </body>
+</html>
